@@ -25,5 +25,5 @@ public class Order {
     private User user;
 
     @OneToOne(mappedBy = "order")
-    private DetailOrden detailOrden;
+    private DetailOrder detailOrder;
 }
