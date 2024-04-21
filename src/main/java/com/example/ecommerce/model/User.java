@@ -1,5 +1,7 @@
 package com.example.ecommerce.model;
 
+import com.example.ecommerce.utils.IdentityType;
+import com.example.ecommerce.utils.UserRol;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,12 +20,13 @@ public class User {
     private Long id;
     private String name;
     private String username;
+    private IdentityType identification;
+    private String identificationNumber;
     private String email;
     private String direction;
     private String phone;
-    private String type;
+    private UserRol rol;
     private String password;
-
     //Relationships
     @OneToMany(mappedBy = "user")
     private List<Product> products;
