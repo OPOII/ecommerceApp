@@ -1,8 +1,11 @@
 package com.example.ecommerce.utils;
 
-public enum UserRol {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+public enum UserRol {
+    @JsonProperty("Admin")
     Admin,
+    @JsonProperty("User")
     User
 }
 
