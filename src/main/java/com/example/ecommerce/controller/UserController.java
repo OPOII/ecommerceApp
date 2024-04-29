@@ -7,6 +7,7 @@ import com.example.ecommerce.service.UserService;
 import com.example.ecommerce.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class UserController {
         this.userService=userService;
     }
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     public ResponseEntity<Object>login(@RequestBody RegisterUser user)throws Exception{
           User usuario=this.userService.registerUser(user);
           return ResponseHandler.generateResponse("User saved successfully", HttpStatus.ACCEPTED,usuario);

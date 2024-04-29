@@ -3,9 +3,7 @@ package com.example.ecommerce.service;
 import com.example.ecommerce.model.RegisterUser;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.UserRepository;
-import com.example.ecommerce.utils.ApplicationException;
-import com.example.ecommerce.utils.Errors;
-import com.example.ecommerce.utils.MapObjects;
+import com.example.ecommerce.utils.*;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +16,7 @@ import java.util.regex.Pattern;
 @Service
 public class UserServiceImpl implements UserService{
 
+    private User saveUser=new User();
     private final UserRepository repository;
 
     @Autowired
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService{
                     HttpStatus.BAD_REQUEST
             );
         }
-        prueba=this.repository.findByEmail(registerUser.getEmail());
+        prueba=this.repository.findByEmail(registerUser.getEmail()).isPresent()?this.repository.findByEmail(registerUser.getEmail()).get():null;
         if(prueba!=null){
             throw new ApplicationException(
                     Errors.EMAIL_ALREADY_TAKEN,
@@ -89,25 +88,25 @@ public class UserServiceImpl implements UserService{
         // TODO mejorar el parseo usando gson
 //        Type type=new TypeToken<User>(){}.getType();
 //        User saveUser= (User)MapObjects.convertRequestToObject(registerUser.toString(),type);
-        User saveUser=new User();
+
         saveUser.setFirstName(registerUser.getFirstName());
         saveUser.setMiddleName(registerUser.getMiddleName());
         saveUser.setSecondName(registerUser.getSecondName());
         saveUser.setLastName(registerUser.getLastName());
         saveUser.setUsername(registerUser.getUsername());
-        saveUser.setIdentification(registerUser.getIdentification());
+        saveUser.setIdentification(IdentityType.valueOf(registerUser.getIdentification()));
         saveUser.setIdentificationNumber(registerUser.getIdentificationNumber());
         saveUser.setEmail(registerUser.getEmail());
         saveUser.setDirection(registerUser.getDirection());
         saveUser.setPhone(registerUser.getPhone());
-        saveUser.setRol("");
+        saveUser.setRole(UserRol.USER);
         saveUser.setPassword(registerUser.getPassword());
         saveUser.setActive(true);
+
         return this.save(saveUser);
     }
 
     public boolean isValidEmail(String email){
-        System.out.println("Entro al valid");
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
