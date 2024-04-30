@@ -2,6 +2,7 @@ package com.example.ecommerce.model;
 
 import com.example.ecommerce.utils.IdentityType;
 import com.example.ecommerce.utils.UserRol;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,7 @@ import java.util.List;
 public class User implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
     private String firstName;
     private String middleName;
@@ -38,6 +40,7 @@ public class User implements Serializable, UserDetails {
     private String phone;
     @Enumerated(EnumType.STRING)
     private UserRol role;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private boolean isActive;
     //Relationships
