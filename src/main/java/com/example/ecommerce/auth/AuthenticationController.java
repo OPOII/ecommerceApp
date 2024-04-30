@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin()
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(this.authenticationService.register(authenticationRequest));
     }
 
-    @PostMapping("/authentication")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse>authenticate(@RequestBody AuthenticationRequest authenticationRequest){
         System.out.println("2");
         return ResponseEntity.ok(this.authenticationService.authenticate(authenticationRequest));

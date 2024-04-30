@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,11 +27,15 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
-        final String authHeader=request.getHeader("Authorization");
+
+        if(request.getServletPath().contains("/auth/**")){
+            filterChain.doFilter(request,response);
+            return;
+        }
+        final String authHeader=request.getHeader(HttpHeaders.AUTHORIZATION);
         final String jwt;
         final String userEmail;
         if(authHeader==null || !authHeader.startsWith("Bearer ")){
-            System.out.println("1");
             filterChain.doFilter(request,response);
             return;
         }
