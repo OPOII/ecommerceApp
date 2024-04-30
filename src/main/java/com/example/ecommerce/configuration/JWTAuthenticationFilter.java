@@ -17,7 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 @Component
 @RequiredArgsConstructor
-public class JWTConfigurationFilter extends OncePerRequestFilter {
+public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final JWTService jwtService;
     private final UserDetailsService userDetailsService;
@@ -47,7 +47,9 @@ public class JWTConfigurationFilter extends OncePerRequestFilter {
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
+                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
+        filterChain.doFilter(request,response);
     }
 }

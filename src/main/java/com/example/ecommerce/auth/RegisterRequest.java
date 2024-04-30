@@ -1,8 +1,5 @@
-package com.example.ecommerce.model;
+package com.example.ecommerce.auth;
 
-import com.example.ecommerce.utils.IdentityType;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterUser {
+public class RegisterRequest {
 
     private String firstName;
     private String middleName;
