@@ -6,4 +6,8 @@ public class Errors {
     public final static String INVALID_EMAIL="INVALID_EMAIL";
     public final static String PASSWORD_DONT_MATCH="PASSWORD_DONT_MATCH";
 
+    public final static String USER_NOT_EXIST="USER_NOT_EXIST";
+//    public final static String PASSWORD_DONT_MATCH="PASSWORD_DONT_MATCH";
+//    public final static String PASSWORD_DONT_MATCH="PASSWORD_DONT_MATCH";
+
 }

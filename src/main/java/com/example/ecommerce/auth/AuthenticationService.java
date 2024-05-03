@@ -3,10 +3,7 @@ package com.example.ecommerce.auth;
 import com.example.ecommerce.configuration.JWTService;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.UserRepository;
-import com.example.ecommerce.utils.ApplicationException;
-import com.example.ecommerce.utils.Errors;
-import com.example.ecommerce.utils.IdentityType;
-import com.example.ecommerce.utils.UserRol;
+import com.example.ecommerce.utils.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,7 +39,7 @@ public class AuthenticationService {
                     HttpStatus.BAD_REQUEST
             );
         }
-        if(!isValidEmail(registerRequest.getEmail())){
+        if(!UtilMethods.isValidEmail(registerRequest.getEmail())){
             throw new ApplicationException(
                     Errors.INVALID_EMAIL,
                     "The email: "+registerRequest.getEmail()+" is invalid",
@@ -94,10 +91,6 @@ public class AuthenticationService {
 
     }
 
-    public boolean isValidEmail(String email){
-        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-        return Pattern.compile(regexPattern).matcher(email).matches();
-    }
+
 
 }
